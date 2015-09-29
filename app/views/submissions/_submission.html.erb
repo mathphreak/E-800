@@ -1,0 +1,15 @@
+<p>
+  <strong>Author:</strong>
+  <%= submission.author %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <pre><%= submission.code %></pre>
+</p>
+
+<p>
+  <%= link_to 'Destroy Submission', [submission.assignment, submission],
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+</p>

@@ -8,5 +8,11 @@
   <%= @assignment.description %>
 </p>
 
+<h2>Submissions</h2>
+<%= render @assignment.submissions %>
+
+<h2>Submit your code:</h2>
+<%= render 'submissions/form' %>
+
 <%= link_to 'Edit', edit_assignment_path(@assignment) %> |
 <%= link_to 'Back', assignments_path %>
