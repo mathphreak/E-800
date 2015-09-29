@@ -1,23 +1,27 @@
-<h1>Listing assignments</h1>
+<div class="container">
 
-<%= link_to 'New assignment', new_assignment_path %>
+  <h1>Listing assignments</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th colspan="3"></th>
-  </tr>
+  <%= link_to 'New assignment', new_assignment_path %>
 
-  <% @assignments.each do |assignment| %>
+  <table class="table">
     <tr>
-      <td><%= assignment.title %></td>
-      <td><%= assignment.description %></td>
-      <td><%= link_to 'Show', assignment_path(assignment) %></td>
-      <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
-      <td><%= link_to 'Destroy', assignment_path(assignment),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
+      <th>Title</th>
+      <th>Description</th>
+      <th colspan="3"></th>
     </tr>
-  <% end %>
-</table>
+
+    <% @assignments.each do |assignment| %>
+      <tr>
+        <td><%= assignment.title %></td>
+        <td><%= assignment.description %></td>
+        <td><%= link_to 'Show', assignment_path(assignment) %></td>
+        <td><%= link_to 'Edit', edit_assignment_path(assignment) %></td>
+        <td><%= link_to 'Destroy', assignment_path(assignment),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
+
+</div>

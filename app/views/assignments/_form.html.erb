@@ -14,18 +14,22 @@
     </div>
   <% end %>
 
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
+  <fieldset class="form-group">
+    <p>
+      <%= f.label :title %><br>
+      <%= f.text_field :title, 'class' => 'form-control' %>
+    </p>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <p>
+      <%= f.label :description %><br>
+      <%= f.text_area :description, 'class' => 'form-control' %>
+    </p>
+  </fieldset>
 
   <p>
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </p>
-
-  <p>
-    <%= f.submit %>
+    <%= f.submit 'class' => 'btn btn-primary' %>
   </p>
 
 <% end %>

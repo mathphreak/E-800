@@ -1,18 +1,22 @@
-<p>
-  <strong>Title:</strong>
-  <%= @assignment.title %>
-</p>
+<div class="container">
 
-<p>
-  <strong>Description:</strong>
-  <%= @assignment.description %>
-</p>
+  <p>
+    <strong>Title:</strong>
+    <%= @assignment.title %>
+  </p>
 
-<h2>Submissions</h2>
-<%= render @assignment.submissions %>
+  <p>
+    <strong>Description:</strong>
+    <%= @assignment.description %>
+  </p>
 
-<h2>Submit your code:</h2>
-<%= render 'submissions/form' %>
+  <h2>Submissions</h2>
+  <%= render @assignment.submissions %>
 
-<%= link_to 'Edit', edit_assignment_path(@assignment) %> |
-<%= link_to 'Back', assignments_path %>
+  <h2>Submit your code:</h2>
+  <%= render 'submissions/form' %>
+
+  <%= link_to 'Edit', edit_assignment_path(@assignment) %> |
+  <%= link_to 'Back', assignments_path %>
+
+</div>
