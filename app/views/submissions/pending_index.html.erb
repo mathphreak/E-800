@@ -1,0 +1,9 @@
+<h1>Pending Assignments</h1>
+
+<ul>
+<% @submissions.each do |submission| %>
+<li><%= link_to submission.author + " for " +
+        submission.assignment.title,
+        assignment_path(submission.assignment) %>
+<% end %>
+</ul>

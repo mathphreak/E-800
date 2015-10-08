@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :submissions
   end
 
+  get 'submissions/pending' => 'submissions#pending_index'
+
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
