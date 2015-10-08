@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929145937) do
+ActiveRecord::Schema.define(version: 20151008022053) do
 
   create_table "assignments", force: :cascade do |t|
     t.string   "title"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(version: 20150929145937) do
     t.string   "author"
     t.text     "code"
     t.integer  "assignment_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "pending",       default: true
   end
 
   add_index "submissions", ["assignment_id"], name: "index_submissions_on_assignment_id"
