@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151008022053) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "assignments", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -29,6 +32,7 @@ ActiveRecord::Schema.define(version: 20151008022053) do
     t.boolean  "pending",       default: true
   end
 
-  add_index "submissions", ["assignment_id"], name: "index_submissions_on_assignment_id"
+  add_index "submissions", ["assignment_id"], name: "index_submissions_on_assignment_id", using: :btree
 
+  add_foreign_key "submissions", "assignments"
 end
