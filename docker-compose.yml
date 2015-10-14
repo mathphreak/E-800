@@ -8,7 +8,7 @@ executor:
     - /var/run/docker.sock:/var/run/docker.sock
 web:
   build: .
-  command: bin/run
+  command: sh -c "sleep 10 && /e-800/bin/rake db:migrate && /e-800/bin/rails s -p 3000 -b '0.0.0.0'"
   volumes:
     - .:/e-800
   ports:
