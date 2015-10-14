@@ -1,8 +1,14 @@
 db:
   image: postgres
+executor:
+  build: ./app/executor
+  links:
+    - db
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
 web:
   build: .
-  command: bin/rails s -p 3000 -b '0.0.0.0'
+  command: bin/run
   volumes:
     - .:/e-800
   ports:
