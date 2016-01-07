@@ -11,7 +11,8 @@
 <% if submission.pending %>
   <strong>Pending</strong>
 <% else %>
-  <strong>Not Pending</strong>
+  <strong>Output:</strong>
+  <pre><%= submission.output %></pre>
 <% end %>
 
 <p>
