@@ -27,6 +27,12 @@ class SubmissionsController < ApplicationController
 
   private
     def submission_params
-      params.require(:submission).permit(:author, :code)
+      params.require(:submission).permit(:author, :code).transform_values do |x|
+        if x.is_a?(String)
+          x.encode({:universal_newline => true})
+        else
+          x
+        end
+      end
     end
 end
