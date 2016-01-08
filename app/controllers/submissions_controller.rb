@@ -2,13 +2,13 @@ class SubmissionsController < ApplicationController
   def pending_index
     @assignments = Assignment.all
     @submissions = @assignments
-      .map { |e| e.submissions }
-      .flatten
-      .select { |e| e.pending }
+                   .map(&:submissions)
+                   .flatten
+                   .select(&:pending)
     respond_to do |format|
       format.html
-      format.xml  { render xml: @submissions}
-      format.json { render json: @submissions}
+      format.xml  { render xml: @submissions }
+      format.json { render json: @submissions }
     end
   end
 
@@ -26,13 +26,17 @@ class SubmissionsController < ApplicationController
   end
 
   private
-    def submission_params
-      params.require(:submission).permit(:author, :code).transform_values do |x|
+
+  def submission_params
+    params
+      .require(:submission)
+      .permit(:author, :code)
+      .transform_values do |x|
         if x.is_a?(String)
-          x.encode({:universal_newline => true})
+          x.encode(universal_newline: true)
         else
           x
         end
       end
-    end
+  end
 end
