@@ -24,12 +24,12 @@ This uses Postgres by default, but it probably wouldn't be hard to get it on Mar
 
 This is the logistically interesting part.
 `/app/executor/Dockerfile` specifies a Docker container that will (eventually) monitor the database for new submissions.
-If it finds one, it will (eventually) spawn off an Eyeball to run that submission and give back results.
+If it finds one, it will spawn off an Eyeball to run that submission and give back results.
 Those results will be saved in the database and displayed in the UI.
 
 ### Eyeball
 
-The Eyeball will (eventually) be a minimal Docker image that can be spawned to run a specific submission securely.
+An Eyeball is a minimal Docker image that can be spawned to run a specific submission securely.
 
 **Why is it called that?**
 
