@@ -18,6 +18,9 @@ cur.execute("""
         ON submissions.assignment_id = assignments.id
     WHERE submissions.pending;
 """)
+if cur.rowcount is 0:
+    print "Nothing is pending"
+    sys.exit(0)
 (id, code, script) = cur.fetchone()
 cur.close()
 
@@ -69,7 +72,7 @@ if response is not None:
     print response
     sys.exit(1)
 
-retval = cli.wait(container=container)
+retval = cli.wait(container=container, timeout=10)
 
 if retval is not 0:
     print "Retval was", retval

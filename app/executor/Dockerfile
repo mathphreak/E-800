@@ -22,5 +22,9 @@ RUN chmod a+x /root/checkDB.py
 # Add the mini stuff
 COPY eyeball/ /root/eyeball/
 
+# Run checkDB.py every ten seconds
+RUN mkdir /etc/service/checkdb
+COPY runDB.sh /etc/service/checkdb/run
+
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
