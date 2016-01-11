@@ -1,0 +1,2 @@
+CREATE DATABASE e800_development;
+CREATE DATABASE e800_test;

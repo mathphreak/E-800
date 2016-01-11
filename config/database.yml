@@ -15,9 +15,7 @@ default: &default
 
 development:
   <<: *default
-  # I'm too busy/lazy to have real databases on dockerized pg
-  # so we just use the default
-  # database: e800_development
+  database: e800_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

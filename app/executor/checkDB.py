@@ -8,7 +8,7 @@ import sys
 import ast
 import shutil
 
-conn = psycopg2.connect("host=db dbname=postgres user=postgres")
+conn = psycopg2.connect("host=db dbname=e800_development user=postgres")
 conn.autocommit = True
 cur = conn.cursor()
 cur.execute("""

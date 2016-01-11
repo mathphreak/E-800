@@ -1,5 +1,6 @@
 db:
-  image: postgres
+  build: ./db
+  dockerfile: db.Dockerfile
 executor:
   build: ./app/executor
   links:
