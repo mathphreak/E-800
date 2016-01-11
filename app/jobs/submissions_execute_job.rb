@@ -26,7 +26,7 @@ class SubmissionsExecuteJob < ActiveJob::Base
 
     (folder + 'Dockerfile').open('w') do |f|
       f << "
-      FROM phusion/baseimage:0.9.17
+      FROM phusion/baseimage:0.9.18
 
       # Use baseimage-docker's init system.
       CMD [\"/sbin/my_init\", \"--quiet\", \"--\", \"sh\", \"/root/e800_run.sh\"]

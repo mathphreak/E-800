@@ -29,6 +29,9 @@ gem 'autoprefixer-rails'
 # Use the Docker API when running submissions
 gem 'docker-api'
 
+# use Sidekiq to execute things
+gem 'sidekiq'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
