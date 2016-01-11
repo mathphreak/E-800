@@ -52,3 +52,8 @@ group :development do
   # Suppress asset logs in console
   gem 'quiet_assets'
 end
+
+group :development, :test do
+  gem 'simplecov', :require => false
+  gem 'factory_girl_rails'
+end
