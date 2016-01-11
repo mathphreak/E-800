@@ -1,3 +1,6 @@
+# I have no idea if this is the right way to do this
+require_relative '../jobs/submissions_execute_job'
+
 class SubmissionsController < ApplicationController
   def pending_index
     @assignments = Assignment.all
@@ -15,6 +18,7 @@ class SubmissionsController < ApplicationController
   def create
     @assignment = Assignment.find(params[:assignment_id])
     @submission = @assignment.submissions.create(submission_params)
+    SubmissionsExecuteJob.perform_later @submission
     redirect_to assignment_path(@assignment)
   end
 
