@@ -26,6 +26,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # automatically prefix css
 gem 'autoprefixer-rails'
 
+# Use the Docker API when running submissions
+gem 'docker-api'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
