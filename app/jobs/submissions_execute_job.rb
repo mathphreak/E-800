@@ -61,6 +61,14 @@ class SubmissionsExecuteJob < ActiveJob::Base
     container.wait 10
 
     output = container.logs(stdout: true, stderr: true)
+
+    # The below line of code is what's technically known as a
+    # "terrible workaround to a problem that should not exist at all."
+    #
+    # The Docker API module is returning logs with ASCII control character
+    # nonsense at the beginning of lines for reasons that aren't clear.
+    # As far as I can tell, this regex matches ASCII control characters that
+    # aren't \n.
     output.gsub!(/[\p{C}&&[^\n]]/, '')
 
     yield output
