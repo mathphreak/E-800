@@ -7,17 +7,17 @@ class AssignmentTest < ActiveSupport::TestCase
   end
 
   test 'should not save an assignment with no title' do
-    assignment = build(:assignment, :title => nil)
+    assignment = build(:assignment, title: nil)
     assert_not assignment.save
   end
 
   test 'should not save an assignment with no description' do
-    assignment = build(:assignment, :description => nil)
+    assignment = build(:assignment, description: nil)
     assert_not assignment.save
   end
 
   test 'should not save an assignment with no run script' do
-    assignment = build(:assignment, :run_script => nil)
+    assignment = build(:assignment, run_script: nil)
     assert_not assignment.save
   end
 end

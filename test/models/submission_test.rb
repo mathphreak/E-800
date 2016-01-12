@@ -7,7 +7,7 @@ class SubmissionTest < ActiveSupport::TestCase
   end
 
   test 'should not save a submission with no author' do
-    submission = build(:submission, :author => nil)
+    submission = build(:submission, author: nil)
     assert_not submission.save
   end
 end

@@ -2,62 +2,77 @@ class SubmissionsExecuteJob < ActiveJob::Base
   queue_as :default
 
   def perform(submission)
-    require 'digest/md5'
     require 'pathname'
     require 'docker'
+
+    folder = create_folder submission
+    folder = fill_folder folder, submission
+
+    with_container_output(folder) do |output|
+      submission.output = output
+      submission.pending = false
+      submission.save
+    end
+  end
+
+  private
+
+  def calc_hash(submission)
+    require 'digest/md5'
 
     digest = Digest::MD5.new
     digest << submission.id.to_s
     digest << submission.code
     digest << submission.assignment.run_script
 
-    folder = Pathname "/var/spool/e800/#{digest.hexdigest}"
+    digest.hexdigest
+  end
+
+  def create_folder(submission)
+    folder = Pathname "/var/spool/e800/#{calc_hash submission}"
 
     Dir.mkdir(folder.parent) unless Dir.exist?(folder.parent)
     Dir.mkdir(folder)
 
-    (folder + 'e800_run.sh').open('w') do |f|
+    folder
+  end
+
+  def fill_folder(folder, submission)
+    sub_write(folder, 'e800_run.sh') do |f|
       f << submission.assignment.run_script << "\n"
     end
 
-    (folder + 'code.txt').open('w') do |f|
+    sub_write(folder, 'code.txt') do |f|
       f << submission.code << "\n"
     end
 
-    (folder + 'Dockerfile').open('w') do |f|
-      f << "
-      FROM phusion/baseimage:0.9.18
-
-      # Use baseimage-docker's init system.
-      CMD [\"/sbin/my_init\", \"--quiet\", \"--\", \"sh\", \"/root/e800_run.sh\"]
-
-      # RUN apt-get update && apt-get install -y \
-
-      WORKDIR /root
-      COPY . .
-
-      # Clean up APT when done.
-      RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-      "
+    sub_write(folder, 'Dockerfile') do |f|
+      f << (Pathname(__dir__) + 'Dockerfile').read
     end
 
-    image = Docker::Image.build_from_dir folder.to_s, :t => "eyeballs/#{digest.hexdigest}"
+    folder
+  end
 
-    container = Docker::Container.create :Image => image.id
+  def with_container_output(folder)
+    image = Docker::Image.build_from_dir folder.to_s
+    container = Docker::Container.create Image: image.id
 
     container.start
     container.wait 10
-    container.stop
 
     output = container.logs(stdout: true, stderr: true)
-    output = output.gsub("\u0000", '')
+    output.gsub!(/[\p{C}&&[^\n]]/, '')
 
-    container.delete
-    image.remove
+    yield output
+
+    container.delete force: true
+    image.remove force: true
     folder.rmtree
+  end
 
-    submission.output = output
-    submission.pending = false
-    submission.save
+  def sub_write(folder, path)
+    (folder + path).open('w') do |f|
+      yield f
+    end
   end
 end
