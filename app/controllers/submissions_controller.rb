@@ -25,6 +25,8 @@ class SubmissionsController < ApplicationController
       .transform_values do |x|
         if x.is_a?(String)
           x.encode(universal_newline: true)
+        elsif x.is_a?(ActionDispatch::Http::UploadedFile)
+          x.read.encode(universal_newline: true)
         else
           x
         end
