@@ -5,6 +5,7 @@ class SubmissionsControllerTest < ActionController::TestCase
     assignment = create :assignment
     assert_difference('assignment.submissions.count') do
       post :create, assignment_id: assignment.id,
+                    dont_run: true,
                     submission: { author: 'Test',
                                   code: 'nothing' }
     end

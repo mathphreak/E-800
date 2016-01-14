@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.18
 
 # Use baseimage-docker's init system.
-CMD ["/sbin/my_init", "--quiet", "--", "sh", "/root/e800_run.sh"]
+CMD ["/sbin/my_init", "--quiet", "--", "sh", "-c", "sleep 1 && sh /root/e800_run.sh"]
 
 # RUN apt-get update && apt-get install -y \
 

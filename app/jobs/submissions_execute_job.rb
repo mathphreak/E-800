@@ -53,6 +53,23 @@ class SubmissionsExecuteJob < ActiveJob::Base
     folder
   end
 
+  def cleanup(output)
+    # The below line of code is what's technically known as a
+    # "terrible workaround to a problem that should not exist at all."
+    #
+    # The Docker API module is returning logs with ASCII control character
+    # nonsense at the beginning of lines for reasons that aren't clear.
+    # As far as I can tell, this regex matches ASCII control characters that
+    # aren't \n.
+    output = output.gsub(/[\p{C}&&[^\n]]/, '')
+
+    # Waiting for services to start properly means that syslog-ng will
+    # say that it has started. We don't care that syslog-ng has started.
+    output = output.gsub(/.*syslog-ng starting up.*\n/, '')
+
+    output
+  end
+
   def with_container_output(folder)
     image = Docker::Image.build_from_dir folder.to_s
     container = Docker::Container.create Image: image.id
@@ -62,14 +79,7 @@ class SubmissionsExecuteJob < ActiveJob::Base
 
     output = container.logs(stdout: true, stderr: true)
 
-    # The below line of code is what's technically known as a
-    # "terrible workaround to a problem that should not exist at all."
-    #
-    # The Docker API module is returning logs with ASCII control character
-    # nonsense at the beginning of lines for reasons that aren't clear.
-    # As far as I can tell, this regex matches ASCII control characters that
-    # aren't \n.
-    output.gsub!(/[\p{C}&&[^\n]]/, '')
+    output = cleanup output
 
     yield output
 

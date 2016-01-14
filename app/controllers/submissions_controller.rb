@@ -5,7 +5,7 @@ class SubmissionsController < ApplicationController
   def create
     @assignment = Assignment.find(params[:assignment_id])
     @submission = @assignment.submissions.create(submission_params)
-    SubmissionsExecuteJob.perform_later @submission
+    SubmissionsExecuteJob.perform_later @submission unless params[:dont_run]
     redirect_to assignment_path(@assignment)
   end
 
