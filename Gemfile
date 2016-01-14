@@ -32,6 +32,9 @@ gem 'docker-api'
 # use Sidekiq to execute things
 gem 'sidekiq'
 
+# use Cloud9's Ace editor
+gem 'ace-rails-ap'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

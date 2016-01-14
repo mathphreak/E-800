@@ -15,3 +15,5 @@
 //= require_tree ../../../vendor/assets/javascripts/bootstrap
 //= require turbolinks
 //= require_tree .
+//= require ace-rails-ap
+//= require ace/mode-sh

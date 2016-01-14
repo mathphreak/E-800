@@ -1,3 +1,11 @@
 // Place all the styles related to the assignments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#assignment_run_script {
+  min-height: 7em;
+}
+
+.ace_editor {
+  min-height: 7em;
+}
