@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
+$(document).on "page:change", ->
   if $("#assignment_run_script").length > 0
     editor = ace.edit("assignment_run_script")
     editor.getSession().setMode("ace/mode/sh")
