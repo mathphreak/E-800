@@ -22,8 +22,8 @@ class SubmissionsExecuteJob < ActiveJob::Base
 
     digest = Digest::MD5.new
     digest << submission.id.to_s
-    digest << submission.code
     digest << submission.assignment.run_script
+    submission.submitted_files.each { |file| digest << file.data }
 
     digest.hexdigest
   end
@@ -42,8 +42,11 @@ class SubmissionsExecuteJob < ActiveJob::Base
       f << submission.assignment.run_script << "\n"
     end
 
-    sub_write(folder, 'code.txt') do |f|
-      f << submission.code << "\n"
+    submission.submitted_files.each do |sf|
+      filename = sf.file_spec.name
+      sub_write(folder, filename) do |f|
+        f << sf.data
+      end
     end
 
     sub_write(folder, 'Dockerfile') do |f|

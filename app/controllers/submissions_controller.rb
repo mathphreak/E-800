@@ -32,7 +32,7 @@ class SubmissionsController < ApplicationController
     sfattributes.each do |x|
       idx = x[0]
       file = x[1]
-      sfattributes[idx][:data] = file[:data].read
+      sfattributes[idx][:data] = EnsureUniversalNewlines.fix file[:data].read
     end
   end
 end
