@@ -10,6 +10,13 @@
     <%= @assignment.description %>
   </p>
 
+  <h2>Files</h2>
+  <ul>
+    <% @assignment.file_specs.each do |file| %>
+      <li><%= file.name %></li>
+    <% end %>
+  </ul>
+
   <h2>Submissions</h2>
   <%= render @assignment.submissions %>
 

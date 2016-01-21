@@ -46,13 +46,8 @@ class AssignmentsController < ApplicationController
   def assignment_params
     params
       .require(:assignment)
-      .permit(:title, :description, :run_script)
-      .transform_values do |x|
-        if x.is_a?(String)
-          x.encode(universal_newline: true)
-        else
-          x
-        end
-      end
+      .permit(:title, :description, :run_script, file_specs_attributes:
+        [:id, :name, :_destroy])
+      .transform_values { |x| EnsureUniversalNewlines.fix x }
   end
 end

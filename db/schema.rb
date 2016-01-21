@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107213524) do
+ActiveRecord::Schema.define(version: 20160120054427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20160107213524) do
     t.datetime "updated_at",  null: false
     t.text     "run_script"
   end
+
+  create_table "file_specs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "assignment_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "file_specs", ["assignment_id"], name: "index_file_specs_on_assignment_id", using: :btree
 
   create_table "submissions", force: :cascade do |t|
     t.string   "author"
@@ -36,5 +45,6 @@ ActiveRecord::Schema.define(version: 20160107213524) do
 
   add_index "submissions", ["assignment_id"], name: "index_submissions_on_assignment_id", using: :btree
 
+  add_foreign_key "file_specs", "assignments"
   add_foreign_key "submissions", "assignments"
 end

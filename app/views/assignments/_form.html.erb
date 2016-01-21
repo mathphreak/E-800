@@ -36,6 +36,32 @@
     </p>
   </fieldset>
 
+  <div class="form-horizontal">
+    <%= f.fields_for :file_specs do |fsf| %>
+      <fieldset class="form-group">
+        <%= fsf.label :name, 'Submitted Filename', 'class' => 'col-sm-3 control-label' %>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <%= fsf.text_field :name, 'class' => 'form-control' %>
+            <span class="input-group-addon">
+              <%= fsf.check_box :_destroy %>
+              <%= fsf.label :_destroy, 'Delete' %>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+
+    <fieldset class="form-group">
+      <%= f.fields_for "file_specs_attributes[#{@assignment.file_specs.size}]", @assignment.file_specs.build do |fsf| %>
+        <%= fsf.label :name, 'Submitted Filename', 'class' => 'col-sm-3 control-label' %>
+        <div class="col-sm-9">
+          <%= fsf.text_field :name, 'class' => 'form-control' %>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
+
   <p>
     <%= f.submit 'class' => 'btn btn-primary' %>
   </p>

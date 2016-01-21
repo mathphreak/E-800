@@ -1,4 +1,4 @@
-# I have no idea if this is the right way to do this
+# FIXME: I read somewhere that `require` is just bad in Rails
 require_relative '../jobs/submissions_execute_job'
 
 class SubmissionsController < ApplicationController
@@ -22,14 +22,6 @@ class SubmissionsController < ApplicationController
     params
       .require(:submission)
       .permit(:author, :code)
-      .transform_values do |x|
-        if x.is_a?(String)
-          x.encode(universal_newline: true)
-        elsif x.is_a?(ActionDispatch::Http::UploadedFile)
-          x.read.encode(universal_newline: true)
-        else
-          x
-        end
-      end
+      .transform_values { |x| EnsureUniversalNewlines.fix x }
   end
 end
