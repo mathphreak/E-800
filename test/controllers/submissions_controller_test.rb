@@ -6,8 +6,7 @@ class SubmissionsControllerTest < ActionController::TestCase
     assert_difference('assignment.submissions.count') do
       post :create, assignment_id: assignment.id,
                     dont_run: true,
-                    submission: { author: 'Test',
-                                  code: 'nothing' }
+                    submission: { author: 'Test' }
     end
 
     assert_redirected_to assignment_path(assignment)

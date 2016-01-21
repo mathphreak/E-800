@@ -3,10 +3,12 @@
   <%= submission.author %>
 </p>
 
-<p>
-  <strong>Code:</strong>
-  <pre><%= submission.code %></pre>
-</p>
+<% submission.submitted_files.each do |file| %>
+  <p>
+    <strong><%= file.file_spec.name %>:</strong>
+    <pre><%= file.data %></pre>
+  </p>
+<% end %>
 
 <% if submission.pending %>
   <strong>Pending</strong>

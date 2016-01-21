@@ -3,6 +3,7 @@ require_relative '../jobs/submissions_execute_job'
 
 class SubmissionsController < ApplicationController
   def create
+    read_data_params
     @assignment = Assignment.find(params[:assignment_id])
     @submission = @assignment.submissions.create(submission_params)
     SubmissionsExecuteJob.perform_later @submission unless params[:dont_run]
@@ -21,7 +22,17 @@ class SubmissionsController < ApplicationController
   def submission_params
     params
       .require(:submission)
-      .permit(:author, :code)
+      .permit(:author, submitted_files_attributes: [:data, :file_spec_id])
       .transform_values { |x| EnsureUniversalNewlines.fix x }
+  end
+
+  def read_data_params
+    sfattributes = params[:submission][:submitted_files_attributes]
+    return unless sfattributes
+    sfattributes.each do |x|
+      idx = x[0]
+      file = x[1]
+      sfattributes[idx][:data] = file[:data].read
+    end
   end
 end

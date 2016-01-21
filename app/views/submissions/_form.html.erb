@@ -1,17 +1,21 @@
-<%= form_for([@assignment, @assignment.submissions.build]) do |f| %>
+<%= form_for([@assignment, @assignment.submissions.build], html: { class: 'form-horizontal' }) do |f| %>
   <fieldset class="form-group">
-    <p>
-      <%= f.label :author %><br>
+    <%= f.label :author, 'Author', 'class' => 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
       <%= f.text_field :author, 'class' => 'form-control' %>
-    </p>
+    </div>
   </fieldset>
 
-  <fieldset>
-    <p>
-      <%= f.label :code %><br>
-      <%= f.file_field :code, accept: '.sh' %>
-    </p>
-  </fieldset>
+  <%= f.fields_for :submitted_files do |fsf| %>
+    <fieldset class="form-group">
+        <%= fsf.hidden_field :file_spec_id %>
+        <%= fsf.label :data, fsf.object.file_spec.name, 'class' => 'col-sm-3 control-label' %>
+        <div class="col-sm-9">
+          <%= fsf.file_field :data, accept: '.sh' %>
+        </div>
+    </fieldset>
+  <% end %>
+
   <p>
     <%= f.submit 'class' => 'btn btn-primary' %>
   </p>

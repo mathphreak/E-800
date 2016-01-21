@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120054427) do
+ActiveRecord::Schema.define(version: 20160121030346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20160120054427) do
 
   create_table "submissions", force: :cascade do |t|
     t.string   "author"
-    t.text     "code"
     t.integer  "assignment_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -45,6 +44,19 @@ ActiveRecord::Schema.define(version: 20160120054427) do
 
   add_index "submissions", ["assignment_id"], name: "index_submissions_on_assignment_id", using: :btree
 
+  create_table "submitted_files", force: :cascade do |t|
+    t.binary   "data"
+    t.integer  "file_spec_id"
+    t.integer  "submission_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "submitted_files", ["file_spec_id"], name: "index_submitted_files_on_file_spec_id", using: :btree
+  add_index "submitted_files", ["submission_id"], name: "index_submitted_files_on_submission_id", using: :btree
+
   add_foreign_key "file_specs", "assignments"
   add_foreign_key "submissions", "assignments"
+  add_foreign_key "submitted_files", "file_specs"
+  add_foreign_key "submitted_files", "submissions"
 end
