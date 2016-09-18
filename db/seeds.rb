@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Assignment.create(title: "Hello World",
+hello_world = Assignment.create(title: "Hello World",
   description: "Write a Bash script that prints 'hello world'.",
   run_script: "#!/bin/bash\n\nbash helloworld.sh")
+hello_world.file_specs.create(name: "helloworld.sh")

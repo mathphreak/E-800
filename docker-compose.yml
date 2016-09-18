@@ -5,7 +5,7 @@ redis:
   image: redis
 web:
   build: .
-  command: sh -c "sleep 10 && rm -f /opt/e-800/tmp/pids/server.pid && /opt/e-800/bin/rake db:setup && /opt/e-800/bin/rake db:seed && /opt/e-800/bin/rails s -p 3000 -b '0.0.0.0'"
+  command: sh -c "sleep 10 && rm -f /opt/e-800/tmp/pids/server.pid && /opt/e-800/bin/rake db:setup && /opt/e-800/bin/rails s -p 3000 -b '0.0.0.0'"
   volumes:
     - .:/opt/e-800
     - /var/run/docker.sock:/var/run/docker.sock
