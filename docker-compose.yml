@@ -21,7 +21,7 @@ worker:
   command: /opt/e-800/bin/bundle exec sidekiq
   volumes:
     - .:/opt/e-800
-    - /var/run/docker.sock:/var/run/docker.sock
+    - /var/run/docker.sock:/run/docker.sock
   links:
     - db
     - redis
