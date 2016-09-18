@@ -23,10 +23,10 @@ class SubmissionsExecuteJobTest < ActiveJob::TestCase
     display = assignment.file_specs.create name: 'display.sh'
     submission = create(:submission, assignment: assignment)
     assert_equal 'sh display.sh', submission.assignment.run_script
-    sub_message = submission.submitted_files.create file_spec_id: message.id,
-                                                    data: 'hello world'
-    sub_display = submission.submitted_files.create file_spec_id: display.id,
-                                                    data: 'cat message.txt'
+    submission.submitted_files.create file_spec_id: message.id,
+                                      data: 'hello world'
+    submission.submitted_files.create file_spec_id: display.id,
+                                      data: 'cat message.txt'
     SubmissionsExecuteJob.perform_now(submission)
     assert_not submission.pending
     assert_equal "hello world\n", submission.output

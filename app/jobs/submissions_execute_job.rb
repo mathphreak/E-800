@@ -7,6 +7,7 @@ class SubmissionsExecuteJob < ActiveJob::Base
 
     folder = create_folder submission
     folder = fill_folder folder, submission
+    folder = make_scripts folder, submission
 
     with_container_output(folder) do |output|
       submission.output = output
@@ -38,15 +39,19 @@ class SubmissionsExecuteJob < ActiveJob::Base
   end
 
   def fill_folder(folder, submission)
-    sub_write(folder, 'e800_run.sh') do |f|
-      f << submission.assignment.run_script << "\n"
-    end
-
     submission.submitted_files.each do |sf|
       filename = sf.file_spec.name
       sub_write(folder, filename) do |f|
         f << sf.data
       end
+    end
+
+    folder
+  end
+
+  def make_scripts(folder, submission)
+    sub_write(folder, 'e800_run.sh') do |f|
+      f << submission.assignment.run_script << "\n"
     end
 
     sub_write(folder, 'Dockerfile') do |f|

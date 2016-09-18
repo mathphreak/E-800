@@ -27,7 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'autoprefixer-rails'
 
 # Use the Docker API when running submissions
-gem 'docker-api'
+gem 'docker-api', '~> 1.31'
 
 # use Sidekiq to execute things
 gem 'sidekiq'
@@ -68,6 +68,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
   gem 'factory_girl_rails'
 end

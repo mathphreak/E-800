@@ -59,11 +59,11 @@ GEM
     connection_pool (2.2.0)
     debug_inspector (0.0.2)
     docile (1.1.5)
-    docker-api (1.24.1)
+    docker-api (1.31.0)
       excon (>= 0.38.0)
       json
     erubis (2.7.0)
-    excon (0.45.4)
+    excon (0.52.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -192,7 +192,7 @@ DEPENDENCIES
   autoprefixer-rails
   byebug
   coffee-rails (~> 4.1.0)
-  docker-api
+  docker-api (~> 1.31)
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
